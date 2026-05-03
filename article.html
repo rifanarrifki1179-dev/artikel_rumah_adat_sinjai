@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspek Matematika dalam Rumah Adat Sinjai</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+<style>
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(35px) scale(0.98); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes pageLeave {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to { opacity: 0; transform: translateY(-35px) scale(0.98); filter: blur(3px); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes softZoom {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.page-transition {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: pageEnter 650ms ease both;
+}
+
+.page-transition.is-leaving {
+  animation: pageLeave 450ms ease both;
+}
+
+.page-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 27, 0);
+  pointer-events: none;
+  transition: background 450ms ease;
+  z-index: 9999;
+}
+
+.page-overlay.is-active {
+  background: rgba(24, 24, 27, 0.08);
+}
+
+header { animation: fadeSlideUp 650ms ease both; }
+
+main {
+  animation: fadeSlideUp 850ms ease both;
+  animation-delay: 120ms;
+}
+
+footer {
+  animation: fadeSlideUp 900ms ease both;
+  animation-delay: 180ms;
+}
+
+figure,
+.box,
+#mini-panorama {
+  animation: softZoom 800ms ease both;
+}
+
+.pressable {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.pressable:active { transform: scale(0.97); }
+
+body.menu-open { overflow: hidden; }
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  padding: 110px 24px 24px;
+  background: #f7f1e8;
+  border-right: 1px solid rgba(180, 83, 9, 0.25);
+  box-shadow: 20px 0 50px rgba(120, 53, 15, 0.15);
+  transform: translateX(-100%);
+  transition: transform 350ms ease;
+  z-index: 48;
+}
+
+.side-menu.open { transform: translateX(0); }
+
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 27, 0);
+  pointer-events: none;
+  transition: background 350ms ease;
+  z-index: 40;
+}
+
+.menu-backdrop.open {
+  background: rgba(24, 24, 27, 0.25);
+  pointer-events: auto;
+}
+
+.menu-link {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-weight: 600;
+  color: #3f3f46;
+  transition: 250ms ease;
+}
+
+.menu-link:hover {
+  background: #fef3c7;
+  color: #92400e;
+  transform: translateX(4px);
+}
+
+.content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #92400e;
+  border-bottom: 4px solid #b45309;
+  padding-bottom: 10px;
+  margin-top: 45px;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+
+.content h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #b45309;
+  border-left: 6px solid #b45309;
+  padding-left: 14px;
+  margin-top: 30px;
+  margin-bottom: 12px;
+}
+
+.content h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #78350f;
+  margin-top: 22px;
+  margin-bottom: 8px;
+}
+
+.content p {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  margin-bottom: 16px;
+  color: #27272a;
+  text-align: justify;
+}
+
+.content ul {
+  margin-left: 24px;
+  margin-bottom: 18px;
+  list-style-type: disc;
+}
+
+.content li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.box,
+.concept-source {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-left: 6px solid #b45309;
+  padding: 18px;
+  border-radius: 14px;
+  margin: 18px 0;
+  color: #451a03;
+}
+
+.formula-inline {
+  margin: 20px 0;
+}
+
+.formula-inline .math {
+  font-size: 1.08rem;
+  margin: 12px 0 18px;
+}
+
+figure {
+  margin: 25px 0;
+}
+
+figure img {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid #f3d19c;
+  box-shadow: 0 16px 35px rgba(120, 53, 15, 0.12);
+  transition: transform 350ms ease, box-shadow 350ms ease;
+}
+
+figure img:hover {
+  transform: scale(1.015);
+  box-shadow: 0 20px 45px rgba(120, 53, 15, 0.2);
+}
+
+figcaption {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #92400e;
+  margin-top: 10px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+#mini-panorama {
+  width: 100%;
+  height: 450px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #f3d19c;
+  box-shadow: 0 16px 35px rgba(120, 53, 15, 0.12);
+}
+
+@media (max-width: 640px) {
+  .content h2 { font-size: 1.55rem; }
+  .content h3 { font-size: 1.25rem; }
+  .content p { font-size: 1rem; }
+  #mini-panorama { height: 320px; }
+}
+</style>
+</head>
+
+<body class="bg-[#f7f1e8] text-zinc-800 antialiased page-transition">
+
+<header class="sticky top-0 z-50 bg-[#f7f1e8]/95 backdrop-blur-md border-b border-amber-200">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+    <div class="flex items-center gap-4">
+      <button 
+        id="menuBtn" 
+        type="button"
+        class="pressable inline-flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-white/80 text-zinc-800 shadow-sm hover:bg-amber-100 transition relative z-50"
+        aria-label="Buka menu"
+      >
+        <span id="menuIcon" class="text-3xl leading-none">☰</span>
+      </button>
+
+      <div>
+        <h1 class="text-lg sm:text-xl font-bold text-zinc-900">Rumah Adat Sinjai</h1>
+        <p class="text-xs tracking-[0.25em] text-amber-700">Benteng Somba Opu</p>
+      </div>
+    </div>
+
+    <img src="assets/images/logo.png" alt="Logo" class="h-12 w-12 object-contain">
+  </div>
+</header>
+
+<div id="menuBackdrop" class="menu-backdrop"></div>
+
+<aside id="mobileMenu" class="side-menu">
+  <nav class="flex flex-col gap-3 text-sm">
+    <a href="index.html" class="menu-link">Beranda</a>
+    <a href="vtour.html" class="menu-link">Tur Virtual</a>
+    <a href="article.html" class="menu-link">Artikel Matematika</a>
+    <a href="projectivegeometri.html" class="menu-link">Projective Geometry</a>
+    <a href="3dmodel.html" class="menu-link">3D Desain</a>
+    <a href="video.html" class="menu-link">Video Drone</a>
+  </nav>
+</aside>
+
+<main class="max-w-5xl mx-auto px-6 py-12 content">
+
+  <section class="text-center mb-14">
+    <p class="inline-flex items-center justify-center rounded-full border border-amber-500 px-5 py-2 text-sm md:text-base font-semibold tracking-[0.25em] text-amber-800 mb-6 text-center">
+      ETNOMATEMATIKA RUMAH ADAT SINJAI
+    </p>
+
+    <h1 class="text-4xl md:text-6xl font-extrabold text-amber-900 leading-tight mb-6">
+      Aspek Matematika dalam Rumah Adat Sinjai
+    </h1>
+
+    <p class="text-lg md:text-xl text-amber-800 max-w-4xl mx-auto leading-relaxed text-center">
+      Mempelajari keterkaitan antara etnomatematika dan arsitektur pada Rumah Adat Sinjai sebagai bagian dari warisan budaya Bugis.
+    </p>
+  </section>
+
+  <h3>Contoh Panorama 360°</h3>
+  <p>
+    Memutar panorama berikut membantu memvisualisasikan Rumah Adat Sinjai dalam bentuk tur virtual, sehingga pengunjung dapat mengamati bentuk bangunan, jendela, atap, tangga, tiang, dan pola berulang yang berkaitan dengan konsep matematika.
+  </p>
+  <div id="mini-panorama"></div>
+
+  <h2>1. Pendahuluan</h2>
+
+  <h3>1.A Latar Belakang</h3>
+
+  <p>
+    Rumah adat di Kabupaten Sinjai merupakan bagian dari warisan budaya masyarakat Bugis yang mencerminkan identitas, nilai kehidupan tradisional, serta kearifan lokal yang diwariskan secara turun-temurun. Rumah adat ini tidak hanya berfungsi sebagai tempat tinggal, tetapi juga menjadi simbol status sosial dan budaya masyarakat setempat. Dalam konteks budaya Bugis, rumah tradisional memiliki peran penting sebagai representasi nilai-nilai sosial, struktur kehidupan keluarga, dan filosofi hidup masyarakat.
+  </p>
+
+  <p>
+    Secara arsitektur, rumah adat Bugis di Sinjai berbentuk rumah panggung yang dibangun menggunakan material kayu dengan teknik konstruksi tradisional yang kokoh. Struktur bangunan ini dirancang dengan mempertimbangkan kondisi lingkungan, kebutuhan penghuni, dan fungsi ruang yang beragam, sehingga menunjukkan kemampuan adaptasi masyarakat terhadap alam di sekitarnya. Selain itu, bentuk dan susunan ruang dalam rumah adat Bugis juga memiliki makna filosofis yang berkaitan dengan pandangan hidup dan sistem sosial masyarakat.
+  </p>
+
+  <p>
+    Dalam perkembangannya, rumah adat tidak hanya dilestarikan sebagai warisan budaya, tetapi juga dimanfaatkan sebagai sumber pembelajaran berbasis kearifan lokal. Bentuk bangunan, susunan ruang, dan elemen-elemen arsitektural yang terdapat pada rumah adat dapat digunakan untuk mengenalkan konsep ilmu pengetahuan secara kontekstual, termasuk konsep matematika. Dengan demikian, rumah adat Sinjai memiliki peran penting dalam menjaga keberlangsungan budaya sekaligus menjadi media pembelajaran yang bermakna, khususnya dalam kajian etnomatematika.
+  </p>
+
+  <h2>2. Pembahasan</h2>
+
+  <h3>2.A Geometri Bangun Datar</h3>
+
+  <h3>Jendela Persegi Panjang</h3>
+
+  <p class="concept-source">
+    <strong>Ditemukan pada:</strong> bagian jendela Rumah Adat Sinjai.
+  </p>
+
+  <p>
+    Salah satu konsep geometri bangun datar yang tampak pada Rumah Adat Sinjai adalah bentuk persegi panjang pada bagian jendela. Bentuk ini memberikan kesan proporsional, rapi, dan fungsional karena mampu memaksimalkan pencahayaan serta sirkulasi udara ke dalam rumah. Dalam geometri, persegi panjang memiliki dua pasang sisi yang sejajar dan sama panjang serta empat sudut siku-siku.
+  </p>
+
+  <p>
+    Keberadaan bentuk persegi panjang pada jendela menunjukkan bahwa arsitektur tradisional tidak hanya memperhatikan nilai estetika dan fungsi, tetapi juga memuat konsep matematika yang dapat dipelajari secara nyata. Oleh karena itu, jendela Rumah Adat Sinjai dapat dijadikan contoh kontekstual dalam pembelajaran bangun datar melalui pendekatan etnomatematika.
+  </p>
+
+  <figure>
+    <img src="assets/images/02.jpg" alt="Jendela persegi panjang pada Rumah Adat Sinjai">
+    <figcaption>
+      Jendela Rumah Adat Sinjai memperlihatkan bentuk persegi panjang yang menunjukkan konsep panjang, lebar, luas, dan keliling dalam geometri.
+    </figcaption>
+  </figure>
+
+  <div class="formula-inline">
+    <p><strong>Rumus luas persegi panjang:</strong></p>
+    <p class="math">$$L = p \times l$$</p>
+
+    <ul>
+      <li><strong>L</strong> = luas persegi panjang</li>
+      <li><strong>p</strong> = panjang</li>
+      <li><strong>l</strong> = lebar</li>
+    </ul>
+
+    <div class="box">
+      <p><strong>Contoh perhitungan luas jendela:</strong></p>
+      <p>Misalnya panjang jendela 75 cm dan lebarnya 20 cm, maka:</p>
+      <p class="math">$$L = 75 \times 20 = 1500 \text{ cm}^2$$</p>
+    </div>
+  </div>
+
+  <h3>Atap Segitiga</h3>
+
+  <p class="concept-source">
+    <strong>Ditemukan pada:</strong> bagian atap Rumah Adat Sinjai.
+  </p>
+
+  <p>
+    Konsep bangun datar berikutnya terlihat pada bentuk atap Rumah Adat Sinjai yang menyerupai segitiga. Bentuk segitiga pada atap memperlihatkan struktur yang kokoh dan stabil, serta berfungsi membantu distribusi beban bangunan dan aliran air hujan. Dalam kajian geometri, segitiga memiliki unsur sisi, sudut, alas, dan tinggi yang dapat digunakan sebagai contoh konkret dalam pembelajaran matematika.
+  </p>
+
+  <p>
+    Penerapan bentuk segitiga pada atap menunjukkan bahwa masyarakat tradisional secara tidak langsung telah menerapkan prinsip-prinsip matematis dalam merancang bangunan yang kuat dan fungsional. Hal ini menjadikan atap Rumah Adat Sinjai sebagai salah satu objek kajian etnomatematika yang relevan.
+  </p>
+
+  <figure>
+    <img src="assets/images/03.jpg" alt="Atap segitiga pada Rumah Adat Sinjai">
+    <figcaption>
+      Atap Rumah Adat Sinjai menunjukkan bentuk segitiga yang dapat digunakan untuk mempelajari konsep alas, tinggi, luas, dan kestabilan struktur.
+    </figcaption>
+  </figure>
+
+  <div class="formula-inline">
+    <p><strong>Rumus luas segitiga:</strong></p>
+    <p class="math">$$L = \frac{1}{2} \times a \times t$$</p>
+
+    <ul>
+      <li><strong>L</strong> = luas segitiga</li>
+      <li><strong>a</strong> = alas</li>
+      <li><strong>t</strong> = tinggi</li>
+    </ul>
+
+    <div class="box">
+      <p><strong>Contoh perhitungan luas atap:</strong></p>
+      <p>Misalnya alas atap 325 cm dan tinggi 90 cm, maka:</p>
+      <p class="math">$$L = \frac{1}{2} \times 325 \times 90 = 14625 \text{ cm}^2$$</p>
+    </div>
+  </div>
+
+  <h3>Perantara Tiang Berbentuk Persegi</h3>
+
+  <p class="concept-source">
+    <strong>Ditemukan pada:</strong> bagian perantara antar tiang Rumah Adat Sinjai.
+  </p>
+
+  <p>
+    Pada bagian perantara antar tiang Rumah Adat Sinjai, dapat diamati bentuk persegi yang menunjukkan keteraturan dan keseimbangan struktur. Persegi merupakan bangun datar yang memiliki empat sisi sama panjang dan empat sudut siku-siku. Bentuk ini memperlihatkan susunan yang simetris serta mendukung kekuatan visual maupun struktur bangunan.
+  </p>
+
+  <p>
+    Konsep persegi pada bagian ini menjadi contoh bahwa elemen-elemen rumah adat tidak hanya dibentuk untuk kebutuhan konstruksi, tetapi juga memiliki pola geometris yang dapat digunakan dalam pembelajaran matematika secara kontekstual.
+  </p>
+
+  <figure>
+    <img src="assets/images/04.jpg" alt="Persegi pada perantara tiang Rumah Adat Sinjai">
+    <figcaption>
+      Perantara antar tiang pada Rumah Adat Sinjai memperlihatkan bentuk persegi yang mencerminkan keteraturan dan keseimbangan dalam susunan bangunan.
+    </figcaption>
+  </figure>
+
+  <div class="formula-inline">
+    <p><strong>Rumus luas persegi:</strong></p>
+    <p class="math">$$L = s \times s$$</p>
+
+    <ul>
+      <li><strong>L</strong> = luas persegi</li>
+      <li><strong>s</strong> = sisi</li>
+    </ul>
+
+    <div class="box">
+      <p><strong>Contoh perhitungan luas persegi:</strong></p>
+      <p>Misalnya setiap sisi berukuran 120 cm, maka:</p>
+      <p class="math">$$L = 120 \times 120 = 14400 \text{ cm}^2$$</p>
+    </div>
+  </div>
+
+  <h3>2.B Simetri dan Keseimbangan</h3>
+
+  <p class="concept-source">
+    <strong>Ditemukan pada:</strong> bagian tangga Rumah Adat Sinjai.
+  </p>
+
+  <p>
+    Konsep simetri dan keseimbangan pada Rumah Adat Sinjai terlihat pada susunan tangga yang tersusun secara teratur dengan ukuran dan jarak anak tangga yang relatif sama. Susunan ini memberikan kesan seimbang antara sisi kiri dan kanan, sekaligus memudahkan pengguna dalam naik dan turun dengan nyaman. Dalam matematika, kondisi seperti ini dapat dikaitkan dengan prinsip simetri refleksi dan keteraturan pola.
+  </p>
+
+  <p>
+    Keseimbangan pada tangga tidak hanya memperindah tampilan bangunan, tetapi juga menunjukkan ketepatan dalam perancangan arsitektur tradisional. Dengan demikian, tangga Rumah Adat Sinjai dapat dijadikan contoh penerapan konsep simetri yang nyata dalam kehidupan sehari-hari.
+  </p>
+
+  <figure>
+    <img src="assets/images/05.jpg" alt="Tangga Rumah Adat Sinjai yang menunjukkan simetri">
+    <figcaption>
+      Tangga Rumah Adat Sinjai menunjukkan prinsip simetri dan keseimbangan melalui susunan anak tangga yang teratur.
+    </figcaption>
+  </figure>
+
+  <div class="box">
+    <p><strong>Ilustrasi konsep simetri:</strong></p>
+    <p class="math">$$\text{Sisi kiri} \equiv \text{Sisi kanan}$$</p>
+    <p class="math">$$\text{Susunan yang seimbang mencerminkan keteraturan bentuk}$$</p>
+  </div>
+
+  <h3>2.C Geometri Ruang (3D)</h3>
+
+  <p class="concept-source">
+    <strong>Ditemukan pada:</strong> tiang penyangga Rumah Adat Sinjai.
+  </p>
+
+  <p>
+    Selain bangun datar, Rumah Adat Sinjai juga memperlihatkan konsep geometri ruang atau bangun tiga dimensi. Salah satu contohnya terdapat pada tiang penyangga rumah yang menyerupai balok. Bentuk balok pada tiang menunjukkan adanya dimensi panjang, lebar, dan tinggi yang membentuk struktur ruang nyata dalam arsitektur rumah panggung.
+  </p>
+
+  <p>
+    Tiang penyangga ini berfungsi sebagai penopang utama bangunan agar tetap kokoh dan stabil. Dalam kajian matematika, bentuk balok dapat digunakan untuk menjelaskan konsep volume bangun ruang. Oleh karena itu, bagian tiang Rumah Adat Sinjai dapat dijadikan media pembelajaran kontekstual untuk memahami geometri ruang.
+  </p>
+
+  <figure>
+    <img src="assets/images/06.jpg" alt="Tiang penyangga berbentuk balok pada Rumah Adat Sinjai">
+    <figcaption>
+      Tiang penyangga pada Rumah Adat Sinjai menunjukkan bentuk balok yang dapat dikaitkan dengan konsep volume bangun ruang.
+    </figcaption>
+  </figure>
+
+  <div class="formula-inline">
+    <p><strong>Rumus volume balok:</strong></p>
+    <p class="math">$$V = p \times l \times t$$</p>
+
+    <ul>
+      <li><strong>V</strong> = volume balok</li>
+      <li><strong>p</strong> = panjang</li>
+      <li><strong>l</strong> = lebar</li>
+      <li><strong>t</strong> = tinggi</li>
+    </ul>
+
+    <div class="box">
+      <p><strong>Contoh perhitungan volume:</strong></p>
+      <p>Misalnya panjang 65 cm, lebar 65 cm, dan tinggi 170 cm, maka:</p>
+      <p class="math">$$V = 65 \times 65 \times 170 = 718250 \text{ cm}^3$$</p>
+    </div>
+  </div>
+
+  <h3>2.D Pola, Pengulangan, dan Deret</h3>
+
+  <p class="concept-source">
+    <strong>Ditemukan pada:</strong> pagar teras atau elemen berulang Rumah Adat Sinjai.
+  </p>
+
+  <p>
+    Konsep pola, pengulangan, dan deret pada Rumah Adat Sinjai terlihat pada susunan pagar teras atau elemen-elemen bangunan yang dibuat secara berulang dan teratur. Bentuk serta jarak antar elemen pagar dirancang sama sehingga membentuk pola yang konsisten dan ritmis. Dalam matematika, susunan seperti ini berkaitan dengan konsep pola berulang dan deret sederhana.
+  </p>
+
+  <p>
+    Pola pengulangan tersebut tidak hanya memberikan kesan rapi dan harmonis, tetapi juga mencerminkan keteraturan dalam arsitektur tradisional. Dengan demikian, bagian pagar atau elemen berulang pada Rumah Adat Sinjai dapat dimanfaatkan sebagai contoh nyata untuk menjelaskan konsep pola dan deret dalam pembelajaran etnomatematika.
+  </p>
+
+  <figure>
+    <img src="assets/images/07.jpg" alt="Pola pengulangan pada Rumah Adat Sinjai">
+    <figcaption>
+      Susunan elemen yang berulang pada Rumah Adat Sinjai memperlihatkan konsep pola, pengulangan, dan deret dalam matematika.
+    </figcaption>
+  </figure>
+
+  <div class="box">
+    <p><strong>Ilustrasi pola pengulangan:</strong></p>
+    <p class="math">$$A,\; A,\; A,\; A,\; \dots$$</p>
+    <p class="math">$$a,\; a+d,\; a+2d,\; a+3d,\; \dots$$</p>
+    <p>
+      Susunan tersebut menunjukkan adanya keteraturan dan pengulangan yang dapat dikembangkan menjadi konsep pola dan deret dalam matematika.
+    </p>
+  </div>
+
+  <h2>3. Kesimpulan</h2>
+
+  <p>
+    Rumah Adat Sinjai tidak hanya memiliki nilai budaya dan historis sebagai warisan masyarakat Bugis, tetapi juga mengandung berbagai konsep matematika yang tampak pada struktur bangunannya. Konsep geometri bangun datar dapat diamati pada jendela berbentuk persegi panjang, perantara tiang yang membentuk persegi, serta atap yang menyerupai segitiga.
+  </p>
+
+  <p>
+    Selain itu, konsep simetri dan keseimbangan terlihat pada susunan tangga yang teratur, sedangkan konsep geometri ruang tampak pada tiang penyangga yang menyerupai balok. Pola, pengulangan, dan deret juga dapat diamati pada elemen-elemen bangunan yang tersusun berulang secara konsisten dan harmonis.
+  </p>
+
+  <p>
+    Dengan demikian, Rumah Adat Sinjai dapat dimanfaatkan sebagai sumber belajar kontekstual yang menghubungkan budaya lokal dengan pembelajaran matematika. Melalui pendekatan etnomatematika, peserta didik dapat memahami konsep-konsep matematika secara lebih dekat, nyata, dan bermakna melalui lingkungan budaya yang mereka kenal.
+  </p>
+
+  <h2>4. Daftar Pustaka</h2>
+
+  <ul>
+    <li>Hildayanti, A. (2021). <em>Makna filosofis rumah adat Bugis sebagai identitas budaya lokal</em>.</li>
+    <li>Syarif, E., & Nur, S. (2020). <em>Karakteristik arsitektur rumah tradisional Bugis di Sulawesi Selatan</em>. Jurnal Lingkungan Binaan Indonesia, 9(2). https://doi.org/10.32315/jlbi.v9i2</li>
+    <li>Said, A. (2018). <em>Arsitektur tradisional Bugis: Kajian nilai dan struktur rumah panggung</em>.</li>
+    <li>Viana, A., Larasati, D., & Gantini, C. (2023). <em>Studi komparasi karakteristik fisik arsitektur vernakular Bugis</em>. Tesa Arsitektur, 21(2), 119–132.</li>
+  </ul>
+
+</main>
+
+<footer class="mt-20 bg-zinc-900 text-zinc-300">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between gap-3 text-sm">
+    <p>© 2025 · Rumah Adat Sinjai</p>
+
+    <p>
+      <a 
+        href="https://rifanarrifki1179-dev.github.io/benteng_somba_opu/" 
+        target="_blank"
+        class="text-amber-400 hover:text-amber-300 underline underline-offset-4 transition"
+      >
+        Benteng Somba Opu
+      </a>
+    </p>
+  </div>
+</footer>
+
+<div id="pageOverlay" class="page-overlay"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const overlay = document.getElementById("pageOverlay");
+  const menuBtn = document.getElementById("menuBtn");
+  const menuIcon = document.getElementById("menuIcon");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const menuBackdrop = document.getElementById("menuBackdrop");
+
+  if (menuBtn && mobileMenu && menuIcon && menuBackdrop) {
+    menuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      mobileMenu.classList.toggle("open");
+      menuBackdrop.classList.toggle("open");
+      body.classList.toggle("menu-open");
+
+      menuIcon.textContent = mobileMenu.classList.contains("open") ? "×" : "☰";
+    });
+
+    menuBackdrop.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      menuBackdrop.classList.remove("open");
+      body.classList.remove("menu-open");
+      menuIcon.textContent = "☰";
+    });
+  }
+
+  const links = document.querySelectorAll('a[href]:not([href^="#"]):not([target="_blank"])');
+
+  links.forEach(link => {
+    link.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+
+      if (!href || href.startsWith("javascript:")) return;
+
+      e.preventDefault();
+
+      body.classList.add("is-leaving");
+      if (overlay) overlay.classList.add("is-active");
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 420);
+    });
+  });
+
+  window.addEventListener("pageshow", () => {
+    body.classList.remove("is-leaving");
+    body.classList.remove("menu-open");
+    if (overlay) overlay.classList.remove("is-active");
+  });
+
+  if (typeof pannellum !== "undefined") {
+    pannellum.viewer("mini-panorama", {
+      type: "equirectangular",
+      panorama: "assets/360_images/01.jpg",
+      autoLoad: true,
+      showZoomCtrl: false,
+      compass: false,
+      hfov: 110,
+      pitch: 0,
+      yaw: 0
+    });
+  }
+});
+</script>
+
+</body>
+</html>
