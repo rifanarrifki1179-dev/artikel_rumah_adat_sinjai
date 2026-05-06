@@ -1,446 +1,389 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rumah Adat Sinjai – Tur Virtual</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artikel Rumah Adat Sinjai – Virtual Tour, Model 3D, dan Video Drone</title>
 
-  <style>
-    @keyframes pageEnter {
-      from {
-        opacity: 0;
-        transform: translateY(35px) scale(0.98);
-        filter: blur(3px);
-      }
+<script src="https://cdn.tailwindcss.com"></script>
 
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
-    }
+<style>
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(35px) scale(0.98); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
 
-    @keyframes pageLeave {
-      from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
+@keyframes pageLeave {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to { opacity: 0; transform: translateY(-35px) scale(0.98); filter: blur(3px); }
+}
 
-      to {
-        opacity: 0;
-        transform: translateY(-35px) scale(0.98);
-        filter: blur(3px);
-      }
-    }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    .page-transition {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      animation: pageEnter 650ms ease both;
-    }
+@keyframes softZoom {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
 
-    .page-transition.is-leaving {
-      animation: pageLeave 450ms ease both;
-    }
+.page-transition {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: pageEnter 650ms ease both;
+}
 
-    .page-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(24, 24, 27, 0);
-      pointer-events: none;
-      transition: background 450ms ease;
-      z-index: 9999;
-    }
+.page-transition.is-leaving {
+  animation: pageLeave 450ms ease both;
+}
 
-    .page-overlay.is-active {
-      background: rgba(24, 24, 27, 0.22);
-    }
+.page-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 27, 0);
+  pointer-events: none;
+  transition: background 450ms ease;
+  z-index: 9999;
+}
 
-    .pressable {
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
+.page-overlay.is-active {
+  background: rgba(24, 24, 27, 0.08);
+}
 
-    .pressable:active {
-      transform: scale(0.97);
-    }
+header { animation: fadeSlideUp 650ms ease both; }
+main { animation: fadeSlideUp 850ms ease both; animation-delay: 120ms; }
+footer { animation: fadeSlideUp 900ms ease both; animation-delay: 180ms; }
+.article-card, .box, figure { animation: softZoom 800ms ease both; }
 
-    body.menu-open {
-      overflow: hidden;
-    }
+.pressable { transition: transform 180ms ease, box-shadow 180ms ease; }
+.pressable:active { transform: scale(0.97); }
+body.menu-open { overflow: hidden; }
 
-    .side-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 300px;
-      height: 100vh;
-      padding: 110px 24px 24px;
-      background: #f7f1e8;
-      border-right: 1px solid rgba(245, 158, 11, 0.35);
-      box-shadow: 20px 0 50px rgba(120, 53, 15, 0.12);
-      transform: translateX(-100%);
-      transition: transform 350ms ease;
-      z-index: 48;
-      overflow-y: auto;
-    }
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  padding: 110px 24px 24px;
+  background: #f7f1e8;
+  border-right: 1px solid rgba(180, 83, 9, 0.25);
+  box-shadow: 20px 0 50px rgba(120, 53, 15, 0.15);
+  transform: translateX(-100%);
+  transition: transform 350ms ease;
+  z-index: 48;
+  overflow-y: auto;
+}
+.side-menu.open { transform: translateX(0); }
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 27, 0);
+  pointer-events: none;
+  transition: background 350ms ease;
+  z-index: 40;
+}
+.menu-backdrop.open { background: rgba(24, 24, 27, 0.25); pointer-events: auto; }
+.menu-link {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-weight: 600;
+  color: #3f3f46;
+  transition: 250ms ease;
+}
+.menu-link:hover { background: #fef3c7; color: #92400e; transform: translateX(4px); }
 
-    .side-menu.open {
-      transform: translateX(0);
-    }
+.content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #92400e;
+  border-bottom: 4px solid #b45309;
+  padding-bottom: 10px;
+  margin-top: 45px;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+.content h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #b45309;
+  border-left: 6px solid #b45309;
+  padding-left: 14px;
+  margin-top: 30px;
+  margin-bottom: 12px;
+}
+.content h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #78350f;
+  margin-top: 22px;
+  margin-bottom: 8px;
+}
+.content p {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  margin-bottom: 16px;
+  color: #27272a;
+  text-align: justify;
+}
+.content ul, .content ol {
+  margin-left: 24px;
+  margin-bottom: 18px;
+}
+.content ul { list-style-type: disc; }
+.content ol { list-style-type: decimal; }
+.content li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+.box, .article-card {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-left: 6px solid #b45309;
+  padding: 18px;
+  border-radius: 14px;
+  margin: 18px 0;
+  color: #451a03;
+}
+.article-card p { color: #451a03; margin-bottom: 0; }
+.references li { word-break: break-word; }
 
-    .menu-link {
-      display: block;
-      padding: 14px 16px;
-      border-radius: 14px;
-      transition: background 250ms ease, color 250ms ease, transform 250ms ease;
-    }
 
-    .menu-link:hover {
-      background: #fef3c7;
-      color: #92400e;
-      transform: translateX(4px);
-    }
+/* Card carousel pada bagian hero */
+.hero-carousel-wrap {
+  position: relative;
+  max-width: 760px;
+  margin: 34px auto 0;
+}
 
-    .menu-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(24, 24, 27, 0);
-      pointer-events: none;
-      transition: background 350ms ease;
-      z-index: 40;
-    }
+.hero-carousel-container {
+  position: relative;
+  height: 310px;
+  overflow: hidden;
+}
 
-    .menu-backdrop.open {
-      background: rgba(24, 24, 27, 0.22);
-      pointer-events: auto;
-    }
+.hero-carousel-card {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 300px;
+  min-height: 250px;
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid rgba(245, 158, 11, 0.42);
+  background: rgba(255, 255, 255, 0.95);
+  color: #18181b;
+  text-decoration: none;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 550ms cubic-bezier(.22, 1, .36, 1),
+    opacity 550ms ease,
+    filter 550ms ease,
+    box-shadow 550ms ease,
+    border-color 550ms ease;
+}
 
-    .carousel-container {
-      position: relative;
-      height: 430px;
-      overflow: hidden;
-    }
+.hero-carousel-card .icon-box {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: #fef3c7;
+  font-size: 30px;
+  transition: transform 300ms ease, background 300ms ease;
+}
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+.hero-carousel-card h4 {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-size: 21px;
+  font-weight: 800;
+  color: #18181b;
+}
 
-    .carousel-card {
-      position: absolute;
-      top: 25px;
-      left: 50%;
-      width: 340px;
-      min-height: 350px;
-      padding: 28px;
-      border-radius: 30px;
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      background: rgba(255, 255, 255, 0.96);
-      color: #18181b;
-      text-decoration: none;
-      box-shadow: 0 18px 45px rgba(120, 53, 15, 0.10);
-      transition:
-        transform 550ms cubic-bezier(.22, 1, .36, 1),
-        opacity 550ms ease,
-        filter 550ms ease,
-        box-shadow 550ms ease,
-        border-color 550ms ease;
-    }
+.hero-carousel-card p {
+  color: #52525b;
+  line-height: 1.7;
+  font-size: 14px;
+  margin: 0;
+  text-align: left;
+}
 
-    .carousel-card h4 {
-      margin-top: 22px;
-      margin-bottom: 14px;
-      font-size: 22px;
-      font-weight: 800;
-    }
+.hero-carousel-card span {
+  display: inline-flex;
+  margin-top: 20px;
+  padding: 9px 15px;
+  border-radius: 12px;
+  background: #b45309;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 300ms ease, background 300ms ease;
+}
 
-    .carousel-card p {
-      color: #52525b;
-      line-height: 1.8;
-      font-size: 14px;
-    }
+.hero-carousel-card.is-active {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  z-index: 5;
+  filter: blur(0);
+  border-color: #f59e0b;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.35);
+}
 
-    .carousel-card span {
-      display: inline-flex;
-      margin-top: 28px;
-      padding: 10px 16px;
-      border-radius: 12px;
-      background: #b45309;
-      color: white;
-      font-size: 14px;
-      font-weight: 700;
-      transition: transform 300ms ease, background 300ms ease;
-    }
+.hero-carousel-card.is-left {
+  transform: translateX(-138%) scale(0.82) rotateY(10deg);
+  opacity: 0.72;
+  z-index: 3;
+  filter: blur(0.4px);
+}
 
-    .carousel-card .icon-box {
-      width: 58px;
-      height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 18px;
-      background: #fef3c7;
-      font-size: 30px;
-      transition: transform 300ms ease, background 300ms ease;
-    }
+.hero-carousel-card.is-right {
+  transform: translateX(38%) scale(0.82) rotateY(-10deg);
+  opacity: 0.72;
+  z-index: 3;
+  filter: blur(0.4px);
+}
 
-    .carousel-card.is-active {
-      transform: translateX(-50%) scale(1);
-      opacity: 1;
-      z-index: 5;
-      filter: blur(0);
-      box-shadow: 0 25px 65px rgba(120, 53, 15, 0.22);
-      border-color: #d97706;
-    }
+.hero-carousel-card.is-hidden {
+  transform: translateX(-50%) scale(0.65);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  filter: blur(3px);
+}
 
-    .carousel-card:hover {
-      transform: translateX(-50%) scale(1.04);
-      box-shadow: 0 32px 80px rgba(120, 53, 15, 0.28);
-      border-color: #b45309;
-    }
+.hero-carousel-card:hover .icon-box {
+  transform: scale(1.12) rotate(4deg);
+  background: #fde68a;
+}
 
-    .carousel-card.is-left {
-      transform: translateX(-145%) scale(0.82) rotateY(10deg);
-      opacity: 0.62;
-      z-index: 3;
-      filter: blur(0.5px);
-    }
+.hero-carousel-card:hover span {
+  background: #92400e;
+  transform: translateY(-3px);
+}
 
-    .carousel-card.is-left:hover {
-      transform: translateX(-145%) scale(0.86) rotateY(10deg);
-      opacity: 0.8;
-    }
+.hero-carousel-card.is-active:hover {
+  transform: translateX(-50%) scale(1.04);
+}
 
-    .carousel-card.is-right {
-      transform: translateX(45%) scale(0.82) rotateY(-10deg);
-      opacity: 0.62;
-      z-index: 3;
-      filter: blur(0.5px);
-    }
+.hero-carousel-card.is-left:hover {
+  transform: translateX(-138%) scale(0.86) rotateY(10deg);
+  opacity: 0.86;
+}
 
-    .carousel-card.is-right:hover {
-      transform: translateX(45%) scale(0.86) rotateY(-10deg);
-      opacity: 0.8;
-    }
+.hero-carousel-card.is-right:hover {
+  transform: translateX(38%) scale(0.86) rotateY(-10deg);
+  opacity: 0.86;
+}
 
-    .carousel-card.is-hidden {
-      transform: translateX(-50%) scale(0.65);
-      opacity: 0;
-      z-index: 1;
-      pointer-events: none;
-      filter: blur(3px);
-    }
+.hero-card-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  height: 52px;
+  width: 52px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  color: #92400e;
+  font-size: 26px;
+  font-weight: 800;
+  transition: transform 250ms ease, background 250ms ease, color 250ms ease;
+}
 
-    .carousel-card:hover .icon-box {
-      transform: scale(1.12) rotate(4deg);
-      background: #fde68a;
-    }
+.hero-card-arrow:hover {
+  background: #fef3c7;
+  color: #78350f;
+}
 
-    .carousel-card:hover span {
-      background: #92400e;
-      transform: translateY(-3px);
-    }
+.hero-card-arrow:active {
+  transform: translateY(-50%) scale(0.94);
+}
 
-    @media (max-width: 768px) {
-      .carousel-container {
-        height: 400px;
-      }
+#prevHeroCard { left: 0; }
+#nextHeroCard { right: 0; }
 
-      .carousel-card {
-        width: 280px;
-        min-height: 345px;
-      }
+@media (max-width: 768px) {
+  .hero-carousel-wrap { max-width: 100%; }
+  .hero-carousel-container { height: 300px; }
+  .hero-carousel-card {
+    width: 260px;
+    min-height: 245px;
+    padding: 20px;
+  }
+  .hero-carousel-card.is-left { transform: translateX(-122%) scale(0.76); }
+  .hero-carousel-card.is-right { transform: translateX(22%) scale(0.76); }
+  .hero-carousel-card.is-left:hover { transform: translateX(-122%) scale(0.8) rotateY(8deg); }
+  .hero-carousel-card.is-right:hover { transform: translateX(22%) scale(0.8) rotateY(-8deg); }
+  .hero-card-arrow { height: 44px; width: 44px; font-size: 20px; }
+  #prevHeroCard { left: 4px; }
+  #nextHeroCard { right: 4px; }
+}
 
-      .carousel-card.is-left {
-        transform: translateX(-122%) scale(0.75);
-      }
+@media (max-width: 480px) {
+  .hero-carousel-container { height: 285px; }
+  .hero-carousel-card {
+    width: 235px;
+    min-height: 235px;
+    padding: 18px;
+  }
+  .hero-carousel-card h4 { font-size: 17px; }
+  .hero-carousel-card p { font-size: 12px; line-height: 1.55; }
+  .hero-carousel-card span { font-size: 11px; padding: 7px 10px; }
+  .hero-carousel-card .icon-box { width: 46px; height: 46px; font-size: 22px; }
+}
 
-      .carousel-card.is-right {
-        transform: translateX(22%) scale(0.75);
-      }
-
-      #prevCard,
-      #nextCard {
-        width: 48px;
-        height: 48px;
-        font-size: 20px;
-      }
-
-      #prevCard {
-        left: -4px;
-      }
-
-      #nextCard {
-        right: -4px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .side-menu {
-        width: 260px;
-        padding: 105px 20px 24px;
-      }
-
-      .carousel-container {
-        height: 380px;
-      }
-
-      .carousel-card {
-        width: 260px;
-        min-height: 320px;
-        top: 15px;
-        padding: 20px;
-      }
-
-      .carousel-card h4 {
-        font-size: 18px;
-        margin-top: 16px;
-        margin-bottom: 10px;
-      }
-
-      .carousel-card p {
-        font-size: 13px;
-        line-height: 1.6;
-      }
-
-      .carousel-card span {
-        font-size: 12px;
-        padding: 8px 12px;
-        margin-top: 16px;
-      }
-
-      .carousel-card .icon-box {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-      }
-
-      #prevCard,
-      #nextCard {
-        width: 44px;
-        height: 44px;
-        font-size: 18px;
-      }
-
-      #prevCard {
-        left: 2px;
-      }
-
-      #nextCard {
-        right: 2px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .carousel-container {
-        height: 360px;
-      }
-
-      .carousel-card {
-        width: 240px;
-        min-height: 300px;
-        top: 10px;
-        padding: 16px;
-      }
-
-      .carousel-card h4 {
-        font-size: 16px;
-        margin-top: 12px;
-        margin-bottom: 8px;
-      }
-
-      .carousel-card p {
-        font-size: 12px;
-      }
-
-      .carousel-card span {
-        font-size: 11px;
-        padding: 6px 10px;
-      }
-
-      .carousel-card .icon-box {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-      }
-
-      .carousel-card.is-left {
-        transform: translateX(-120%) scale(0.7);
-      }
-
-      .carousel-card.is-right {
-        transform: translateX(20%) scale(0.7);
-      }
-
-      #prevCard,
-      #nextCard {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-
-      #prevCard {
-        left: 4px;
-      }
-
-      #nextCard {
-        right: 4px;
-      }
-    }
-  </style>
+.hero-image {
+  border-radius: 26px;
+  border: 1px solid #f3d19c;
+  box-shadow: 0 18px 45px rgba(120, 53, 15, 0.15);
+}
+@media (max-width: 640px) {
+  .content h2 { font-size: 1.55rem; }
+  .content h3 { font-size: 1.25rem; }
+  .content p { font-size: 1rem; }
+}
+</style>
 </head>
 
 <body class="bg-[#f7f1e8] text-zinc-800 antialiased page-transition">
 
-  <header class="sticky top-0 z-50 border-b border-amber-200/70 bg-[#f7f1e8]/95 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-
-      <div class="flex items-center gap-4">
-        <button 
-          id="menuBtn"
-          type="button"
-          class="pressable inline-flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-white/80 text-zinc-800 shadow-sm hover:bg-amber-100 transition relative z-50"
-          aria-label="Buka menu"
-        >
-          <span id="menuIcon" class="text-3xl leading-none">☰</span>
-        </button>
-
-        <div>
-          <h1 class="text-lg sm:text-xl font-bold text-zinc-900">
-            Rumah Adat Sinjai
-          </h1>
-          <p class="text-xs tracking-[0.25em] text-amber-700">
-            Benteng Somba Opu
-          </p>
-        </div>
+<header class="sticky top-0 z-50 bg-[#f7f1e8]/95 backdrop-blur-md border-b border-amber-200">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <button id="menuBtn" type="button" class="pressable inline-flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-white/80 text-zinc-800 shadow-sm hover:bg-amber-100 transition relative z-50" aria-label="Buka menu">
+        <span id="menuIcon" class="text-3xl leading-none">☰</span>
+      </button>
+      <div>
+        <h1 class="text-lg sm:text-xl font-bold text-zinc-900">Rumah Adat Sinjai</h1>
+        <p class="text-xs tracking-[0.25em] text-amber-700">UPT Taman Budaya Benteng Somba Opu</p>
       </div>
-
-      <img 
-        src="assets/images/logo.png" 
-        alt="Logo Lembaga"
-        class="h-12 w-12 object-contain shrink-0"
-      >
     </div>
-  </header>
+    <img src="assets/images/logo.png" alt="Logo" class="h-12 w-12 object-contain">
+  </div>
+</header>
 
-  <div id="menuBackdrop" class="menu-backdrop"></div>
+<div id="menuBackdrop" class="menu-backdrop"></div>
 
-  <aside id="mobileMenu" class="side-menu">
-    <nav class="flex flex-col gap-3 text-sm font-semibold text-zinc-700">
-      <a href="#" class="menu-link">Beranda</a>
-      <a href="vtour.html" class="menu-link">Tur Virtual</a>
-      <a href="article.html" class="menu-link">Artikel Matematika</a>
-      <a href="projectivegeometri.html" class="menu-link">Projective Geometry</a>
-      <a href="3dmodel.html" class="menu-link">3D Desain</a>
-      <a href="videodrone.html" class="menu-link">Video Drone</a>
-    </nav>
-  </aside>
+<aside id="mobileMenu" class="side-menu">
+  <nav class="flex flex-col gap-3 text-sm">
+    <a href="index.html" class="menu-link">Artikel Rumah Adat</a>
+    <a href="vtour.html" class="menu-link">Tur Virtual</a>
+    <a href="3dmodel.html" class="menu-link">3D Desain</a>
+    <a href="videodrone.html" class="menu-link">Video Drone</a>
+  </nav>
+</aside>
 
   <section class="relative min-h-[88vh] flex items-center overflow-hidden">
     <img
-      src="assets/images/01.jpg"
+      src="assets/images/06.jpg"
       alt="Rumah Adat Sinjai – tampak utama"
       class="absolute inset-0 h-full w-full object-cover scale-105"
     />
@@ -458,251 +401,258 @@
         </h2>
 
         <p class="max-w-3xl mx-auto text-sm sm:text-base lg:text-lg text-stone-200 leading-7 sm:leading-8 mb-8 text-justify">
-          Jelajahi Rumah Adat Sinjai dalam tur virtual 360°. Rumah adat ini merupakan salah satu warisan budaya masyarakat Bugis di Sulawesi Selatan yang mencerminkan identitas lokal, nilai tradisional, serta kearifan arsitektur yang diwariskan secara turun-temurun. Sebagai representasi rumah panggung tradisional, Rumah Adat Sinjai memperlihatkan penerapan berbagai konsep geometri pada bentuk bangunannya, seperti segitiga pada bagian atap, persegi panjang pada jendela, persegi pada bagian tertentu struktur bangunan, serta keteraturan bentuk pada susunan elemen arsitektur. Melalui tur virtual ini, pengunjung dapat mengenal lebih dekat karakteristik Rumah Adat Sinjai sekaligus memahami keterkaitan antara budaya lokal dan konsep matematika dalam kehidupan masyarakat.
+          Jelajahi Rumah Adat Sinjai dalam tur virtual 360°. Rumah adat Karampuang di Kabupaten Sinjai merupakan salah satu warisan budaya Bugis yang memiliki nilai sejarah dan kearifan lokal yang tinggi. Bangunan ini merepresentasikan kehidupan sosial masyarakat Sinjai yang menjunjung kebersamaan, nilai adat, serta hubungan harmonis antara manusia, alam, dan tradisi leluhur.
         </p>
 
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="vtour.html"
-             class="pressable inline-flex items-center justify-center rounded-xl bg-amber-700 px-7 py-3.5 text-sm sm:text-base font-semibold text-white shadow-xl shadow-amber-900/20 transition duration-300 hover:bg-amber-800 hover:-translate-y-0.5">
-            Masuk ke Tur Virtual
-          </a>
+        <div class="hero-carousel-wrap" aria-label="Fitur eksplorasi Rumah Adat Sinjai">
+          <button id="prevHeroCard" class="hero-card-arrow" type="button" aria-label="Card sebelumnya">‹</button>
+          <button id="nextHeroCard" class="hero-card-arrow" type="button" aria-label="Card berikutnya">›</button>
 
-          <a href="article.html"
-             class="pressable inline-flex items-center justify-center rounded-xl border border-amber-200 px-7 py-3.5 text-sm sm:text-base font-semibold text-amber-100 transition duration-300 hover:bg-white hover:text-zinc-900">
-            Baca Artikel Matematika
-          </a>
+          <div class="hero-carousel-container">
+            <div id="heroCardCarousel" class="relative h-full">
+
+              <a href="vtour.html" class="hero-carousel-card" data-index="0">
+                <div class="icon-box">🧭</div>
+                <h4>Jelajah Virtual Tour</h4>
+                <p>Masuki tur virtual 360° untuk melihat suasana dan bagian-bagian Rumah Adat Sinjai secara interaktif.</p>
+                <span>Masuk Tur</span>
+              </a>
+
+              <a href="3dmodel.html" class="hero-carousel-card" data-index="1">
+                <div class="icon-box">🏗️</div>
+                <h4>Model 3D</h4>
+                <p>Lihat bentuk Rumah Adat Sinjai melalui model 3D agar detail struktur bangunan lebih mudah diamati.</p>
+                <span>Lihat Model</span>
+              </a>
+
+              <a href="videodrone.html" class="hero-carousel-card" data-index="2">
+                <div class="icon-box">🎥</div>
+                <h4>Video Drone</h4>
+                <p>Tonton tampilan Rumah Adat Sinjai dari sudut pandang udara untuk memahami bentuk kawasan secara menyeluruh.</p>
+                <span>Lihat Video</span>
+              </a>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <main class="py-16 sm:py-20">
+<main class="max-w-5xl mx-auto px-6 py-12 content">
 
-    <section class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
-        <p class="text-sm uppercase tracking-[0.25em] text-amber-700 mb-3">
-          Eksplorasi Utama
-        </p>
+  <section class="text-center mb-14">
+    <p class="inline-flex items-center justify-center rounded-full border border-amber-500 px-5 py-2 text-sm md:text-base font-semibold tracking-[0.25em] text-amber-800 mb-6 text-center">
+      ARTIKEL BUDAYA RUMAH ADAT SINJAI
+    </p>
 
-        <h3 class="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4 leading-tight">
-          Jelajahi Lebih Jauh Rumah Adat Sinjai dari Perspektif Matematika
-        </h3>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-amber-900 leading-tight mb-6">
+      Rumah Adat Sinjai
+    </h1>
 
-        <p class="text-zinc-600 leading-7 sm:leading-8 text-justify">
-          Setiap fitur dirancang untuk membantu pengunjung memahami keterkaitan antara budaya lokal dan konsep matematika pada Rumah Adat Sinjai. Melalui halaman ini, pengunjung dapat mengeksplorasi tur virtual 360°, membaca artikel matematika, mempelajari projective geometry, melihat model 3D, serta menonton video drone untuk memahami bentuk bangunan secara lebih menyeluruh.
-        </p>
-      </div>
+    <p class="text-lg md:text-xl text-amber-800 max-w-4xl mx-auto leading-relaxed text-center">
+      Mengenal sejarah, asal-usul, filosofi, ciri arsitektur, dan fungsi Rumah Adat Karampuang sebagai warisan budaya masyarakat Sinjai.
+    </p>
 
-      <div class="relative max-w-6xl mx-auto">
-        <button id="prevCard"
-          class="absolute left-[-20px] top-1/2 -translate-y-1/2 z-10 h-14 w-14 rounded-full bg-white border border-amber-300 shadow-md text-2xl text-amber-700 hover:bg-amber-100 transition">
-          ‹
-        </button>
-
-        <button id="nextCard"
-          class="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10 h-14 w-14 rounded-full bg-white border border-amber-300 shadow-md text-2xl text-amber-700 hover:bg-amber-100 transition">
-          ›
-        </button>
-
-        <div class="relative overflow-hidden carousel-container">
-          <div id="cardCarousel" class="relative h-full">
-
-            <a href="vtour.html" class="carousel-card" data-index="0">
-              <div class="icon-box">🧭</div>
-              <h4>Tur Virtual</h4>
-              <p>Masuki Tur Virtual 360° Rumah Adat Sinjai dan jelajahi seluruh titik orientasi bangunan.</p>
-              <span>Masuk Tur</span>
-            </a>
-
-            <a href="article.html" class="carousel-card" data-index="1">
-              <div class="icon-box">📘</div>
-              <h4>Konsep Matematika</h4>
-              <p>Pahami konsep simetri, bangun datar, bangun ruang, dan pola pengulangan pada Rumah Adat Sinjai.</p>
-              <span>Baca Artikel</span>
-            </a>
-
-            <a href="projectivegeometri.html" class="carousel-card" data-index="2">
-              <div class="icon-box">📐</div>
-              <h4>Projective Geometry</h4>
-              <p>Pelajari projective geometry dari Rumah Adat Sinjai melalui bentuk dan perspektif bangunannya.</p>
-              <span>Pelajari</span>
-            </a>
-
-            <a href="3dmodel.html" class="carousel-card" data-index="3">
-              <div class="icon-box">🏗️</div>
-              <h4>3D Desain</h4>
-              <p>Lihat model 3D Rumah Adat Sinjai untuk memahami detail bentuk dan konstruksi bangunan.</p>
-              <span>Lihat Model</span>
-            </a>
-
-            <a href="videodrone.html" class="carousel-card" data-index="4">
-              <div class="icon-box">🎥</div>
-              <h4>Video Drone</h4>
-              <p>Tonton video drone Rumah Adat Sinjai dari sudut pandang udara.</p>
-              <span>Lihat Video</span>
-            </a>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mt-20">
-      <div class="rounded-[30px] border border-amber-100 bg-white p-8 shadow-sm max-w-4xl mx-auto">
-        <p class="text-sm uppercase tracking-[0.2em] text-amber-700 mb-3">
-          Tentang Rumah Adat Sinjai
-        </p>
-
-        <h3 class="text-3xl sm:text-4xl font-bold text-zinc-900 mb-5 leading-tight">
-          Rumah Adat Sinjai sebagai Media Pembelajaran Berbasis Etnomatematika
-        </h3>
-
-        <p class="text-zinc-600 leading-7 sm:leading-8 mb-5 text-justify">
-          Rumah Adat Sinjai merupakan salah satu bentuk pelestarian budaya dan identitas daerah Sulawesi Selatan yang mencerminkan nilai-nilai kehidupan masyarakat Bugis. Keberadaannya tidak hanya berfungsi sebagai representasi arsitektur tradisional, tetapi juga sebagai sarana edukasi yang memperkenalkan budaya lokal, struktur bangunan rumah panggung, serta cara masyarakat memaknai ruang, fungsi, dan keseimbangan dalam kehidupan sehari-hari. Sebagai warisan budaya, rumah adat ini memiliki peranan penting dalam menjaga kesinambungan pengetahuan lokal agar tetap dikenal oleh masyarakat luas dan generasi muda.
-        </p>
-
-        <p class="text-zinc-600 leading-7 sm:leading-8 text-justify">
-          Secara arsitektural, Rumah Adat Sinjai menunjukkan adanya prinsip keteraturan, keseimbangan, proporsi, dan keselarasan bentuk yang tampak pada susunan tiang, bentuk atap, pola jendela, tangga, serta elemen-elemen bangunan lainnya. Dari sudut pandang etnomatematika, rumah adat ini dapat dikaji sebagai wujud integrasi antara budaya lokal dengan konsep matematika, khususnya pada bentuk segitiga di bagian atap, persegi panjang pada jendela, balok pada tiang penyangga, serta pola pengulangan pada susunan elemen arsitektur. Tur virtual ini membantu pengunjung memahami bentuk arsitektur Rumah Adat Sinjai secara lebih nyata, sekaligus melihat bagaimana konsep matematika hadir secara alami dalam warisan budaya tradisional.
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="mt-20 bg-zinc-900 text-zinc-300">
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between gap-3 text-sm">
-      <p>© 2025 · Rumah Adat Sinjai</p>
-
-      <p>
-        <a 
-          href="https://rifanarrifki1179-dev.github.io/benteng_somba_opu/" 
-          target="_blank"
-          class="text-amber-400 hover:text-amber-300 underline underline-offset-4 transition"
-        >
-          Benteng Somba Opu
-        </a>
-      </p>
+    <div class="mt-8">
+      <img src="assets/images/06.jpg" alt="Rumah Adat Sinjai" class="hero-image w-full max-h-[460px] object-cover">
     </div>
-  </footer>
+  </section>
 
-  <div id="pageOverlay" class="page-overlay"></div>
+  <h2>1. Pendahuluan</h2>
+  <p>Rumah adat Karampuang di Kabupaten Sinjai merupakan salah satu warisan budaya Bugis yang memiliki nilai sejarah dan kearifan lokal yang tinggi. Rumah adat ini tidak hanya berfungsi sebagai tempat tinggal, tetapi juga sebagai simbol identitas budaya masyarakat Sinjai yang masih kuat menjaga tradisi leluhur.</p>
+  <p>Keberadaan rumah adat Karampuang menunjukkan hubungan erat antara manusia, alam, dan nilai adat yang diwariskan secara turun-temurun. Rumah ini menjadi representasi kehidupan sosial masyarakat yang menjunjung tinggi kebersamaan dan nilai budaya.</p>
+  <p>Saat ini, rumah adat Karampuang juga berkembang menjadi objek wisata budaya yang menarik perhatian pengunjung dan menjadi sarana edukasi sejarah serta pelestarian budaya lokal (Ishak, 2020; Herdiansyah, 2019).</p>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const body = document.body;
-      const overlay = document.getElementById("pageOverlay");
+  <h2>2. Latar Belakang</h2>
+  <p>Rumah adat Karampuang di Kabupaten Sinjai merupakan salah satu warisan budaya masyarakat Bugis yang memiliki nilai sejarah dan sosial yang sangat kuat. Keberadaannya tidak terlepas dari kehidupan masyarakat adat yang sejak dahulu menjadikan rumah bukan hanya sebagai tempat tinggal, tetapi juga sebagai pusat aktivitas budaya, sosial, dan spiritual. Dalam konteks ini, rumah adat menjadi bagian penting dari sistem kehidupan masyarakat yang masih berpegang pada nilai-nilai tradisional (Kasdiawati, 2021).</p>
+  <p>Pada masa lalu, rumah adat Karampuang berkembang di lingkungan masyarakat adat yang hidup secara komunal dan sangat menjunjung tinggi aturan adat. Rumah adat ini digunakan sebagai tempat berlangsungnya berbagai kegiatan penting seperti musyawarah adat, ritual kepercayaan, serta kegiatan sosial yang memperkuat hubungan antaranggota masyarakat. Dengan demikian, rumah adat tidak hanya berfungsi secara fisik, tetapi juga memiliki peran sosial yang sangat vital dalam kehidupan masyarakat Sinjai (Nuraimma, 2018).</p>
+  <p>Seiring berjalannya waktu, rumah adat Karampuang juga menjadi simbol identitas budaya masyarakat setempat. Keberadaannya mencerminkan sistem nilai yang diwariskan secara turun-temurun, termasuk norma, aturan, dan tradisi yang masih dijaga hingga saat ini. Hal ini menunjukkan bahwa rumah adat memiliki fungsi sebagai media pewarisan budaya dari generasi ke generasi (Herdiansyah, 2019).</p>
+  <p>Dari segi arsitektur, rumah adat Karampuang menunjukkan kemampuan masyarakat dalam beradaptasi dengan kondisi lingkungan tropis. Struktur rumah panggung yang digunakan merupakan bentuk respons terhadap kondisi alam seperti curah hujan tinggi dan kelembapan tanah. Selain itu, penggunaan material alami juga mencerminkan kearifan lokal dalam memanfaatkan sumber daya yang tersedia di lingkungan sekitar (Oktawati & Azizah, 2022).</p>
+  <p>Lebih jauh, rumah adat ini juga memiliki nilai filosofis yang kuat yang berkaitan dengan konsep <em>genius loci</em> atau jiwa tempat. Setiap elemen bangunan memiliki keterkaitan dengan lingkungan, budaya, dan kehidupan masyarakat. Hal ini menjadikan rumah adat Karampuang tidak hanya sebagai bangunan tradisional, tetapi juga sebagai ruang hidup yang sarat makna (Fauzan, 2024).</p>
+  <p>Dalam perkembangan saat ini, rumah adat Karampuang juga mengalami pergeseran fungsi menjadi objek wisata budaya yang menarik perhatian pengunjung. Hal ini memberikan dampak positif dalam pelestarian budaya sekaligus meningkatkan kesadaran masyarakat akan pentingnya menjaga warisan leluhur. Dengan demikian, rumah adat ini tetap relevan di tengah perkembangan zaman tanpa kehilangan nilai tradisionalnya (Ishak, 2020).</p>
 
-      const menuBtn = document.getElementById("menuBtn");
-      const menuIcon = document.getElementById("menuIcon");
-      const mobileMenu = document.getElementById("mobileMenu");
-      const menuBackdrop = document.getElementById("menuBackdrop");
+  <h2>3. Asal Usul Rumah Adat</h2>
+  <p>Rumah adat Karampuang di Kabupaten Sinjai berawal dari kehidupan masyarakat adat Bugis yang sejak dahulu menetap dan berkembang di wilayah pedalaman serta pesisir Sinjai. Rumah ini tidak muncul secara tiba-tiba, tetapi lahir dari proses panjang interaksi antara manusia, alam, dan sistem sosial yang berlaku dalam masyarakat. Dalam perkembangannya, rumah adat ini menjadi bentuk hunian yang tidak hanya memenuhi kebutuhan tempat tinggal, tetapi juga mencerminkan identitas budaya dan nilai adat yang dijunjung tinggi (Kasdiawati, 2021).</p>
+  <p>Seiring waktu, masyarakat Karampuang membangun pola permukiman yang berbasis kebersamaan dan aturan adat yang kuat. Rumah adat kemudian menjadi pusat kehidupan komunitas, tempat berkumpulnya keluarga besar, serta ruang berlangsungnya berbagai aktivitas adat yang sakral maupun sosial. Hal ini menunjukkan bahwa rumah adat memiliki peran penting dalam menjaga keteraturan sosial dan keberlangsungan tradisi masyarakat (Nuraimma, 2018).</p>
+  <p>Selain itu, bentuk rumah panggung yang menjadi ciri khas Karampuang juga lahir dari proses adaptasi terhadap kondisi alam Sinjai yang beriklim tropis dengan curah hujan tinggi. Pemilihan bentuk ini bukan hanya karena faktor teknis, tetapi juga karena telah menjadi bagian dari pengetahuan lokal yang diwariskan secara turun-temurun oleh masyarakat (Oktawati & Azizah, 2022).</p>
 
-      if (menuBtn && mobileMenu && menuIcon && menuBackdrop) {
-        menuBtn.addEventListener("click", (e) => {
+  <div class="article-card">
+    <h3>Inti Asal-Usul Rumah Adat Karampuang</h3>
+    <ul>
+      <li>Dibangun sebagai hunian masyarakat adat Sinjai.</li>
+      <li>Berawal dari kebutuhan rumah yang sesuai dengan lingkungan tropis.</li>
+      <li>Berkembang sebagai bagian dari pusat kehidupan komunitas adat.</li>
+      <li>Digunakan untuk kegiatan sosial, adat, dan kebersamaan.</li>
+    </ul>
+  </div>
+
+  <p>Rumah ini kemudian menjadi simbol keberlanjutan budaya yang diwariskan turun-temurun hingga sekarang.</p>
+
+  <h2>4. Makna Budaya dan Filosofi</h2>
+  <p>Rumah adat Karampuang memiliki makna sebagai simbol kehidupan masyarakat yang harmonis dengan alam dan leluhur. Rumah ini mencerminkan nilai kebersamaan, kesederhanaan, serta keteraturan dalam kehidupan sosial masyarakat adat Sinjai.</p>
+  <p>Selain itu, rumah adat juga mencerminkan hubungan spiritual antara manusia dan alam, di mana setiap ruang dan struktur memiliki makna yang berkaitan dengan kehidupan sehari-hari serta nilai-nilai adat yang dijunjung tinggi.</p>
+
+  <h2>5. Ciri Khas Arsitektur Rumah Adat</h2>
+  <div class="box">
+    <ul>
+      <li>Bentuk rumah panggung sebagai adaptasi terhadap lingkungan tropis.</li>
+      <li>Menggunakan material kayu dan bahan alami.</li>
+      <li>Memiliki struktur yang kuat dan sederhana sesuai tradisi lokal.</li>
+      <li>Desain ventilasi alami untuk kenyamanan udara.</li>
+      <li>Tata ruang terbuka dan fleksibel.</li>
+      <li>Mencerminkan kearifan lokal masyarakat Sinjai (Oktawati & Azizah, 2022).</li>
+    </ul>
+  </div>
+
+  <h2>6. Fungsi Rumah Adat</h2>
+  <div class="box">
+    <ul>
+      <li>Sebagai tempat tinggal masyarakat adat.</li>
+      <li>Sebagai pusat kegiatan sosial dan adat.</li>
+      <li>Sebagai tempat pelaksanaan ritual dan upacara tradisional.</li>
+      <li>Sebagai simbol identitas budaya masyarakat Sinjai.</li>
+      <li>Sebagai media pelestarian budaya lokal.</li>
+      <li>Sebagai objek wisata sejarah dan edukasi (Ishak, 2020; Herdiansyah, 2019).</li>
+    </ul>
+  </div>
+
+  <h2>7. Kesimpulan</h2>
+  <p>Rumah adat Karampuang merupakan warisan budaya penting masyarakat Sinjai yang memiliki nilai sejarah, sosial, dan filosofis yang tinggi. Rumah ini tidak hanya berfungsi sebagai tempat tinggal, tetapi juga sebagai simbol identitas dan pusat kehidupan adat masyarakat.</p>
+  <p>Dengan keunikan arsitektur serta makna budaya yang terkandung di dalamnya, rumah adat Karampuang menjadi bukti kearifan lokal yang masih terjaga hingga saat ini. Oleh karena itu, pelestarian rumah adat ini sangat penting untuk menjaga warisan budaya dan identitas masyarakat Sinjai di masa depan.</p>
+
+  <h2>8. Daftar Pustaka</h2>
+  <ul class="references">
+    <li>NURAIMMA, N. (2018). <em>Strategi Pengembangan Potensi Objek Wisata Rumah Adat Karampuang Terhadap Sosial Budaya Masyarakat di Desa Tompobulu Kecamatan Bulupoddo Kabupaten Sinjai</em>. https://eprints.unm.ac.id/id/eprint/11910</li>
+    <li>Oktawati, A. E., & Azizah, N. (2022). <em>Penerapan Arsitektur Tropis Rumah Adat Karampuang di Sinjai</em>. https://ejournal.unib.ac.id/index.php/teknosia</li>
+    <li>Kasdiawati, K. (2021). <em>Analisis Interpretasi Makna Rumah Adat Karampuang di Kabupaten Sinjai</em> (Doctoral dissertation, Universitas Hasanuddin). http://repository.unhas.ac.id:443/id/eprint/9171</li>
+    <li>HERDIANSYAH, H. (2019). <em>Survei Tingkat Kepuasan Pengunjung Wisata Rumah Adat Karampuang Kabupaten Sinjai</em> (Doctoral dissertation, Universitas Negeri Makassar). https://eprints.unm.ac.id/id/eprint/13644</li>
+    <li>Fauzan, A. N. (2024). <em>Genius Loci Struktur dan Material Rumah Adat Karampuang di Kabupaten Sinjai</em> (Doctoral dissertation, Universitas Hasanuddin). http://repository.unhas.ac.id:443/id/eprint/39442</li>
+    <li>Ishak, W. (2020). Pesona objek wisata sejarah di Kabupaten Sinjai. <em>Pusaka: Journal of Tourism, Hospitality, Travel and Business Event</em>, 98-110. https://doi.org/10.33649/pusaka.v2i2.54</li>
+  </ul>
+
+</main>
+
+<footer class="mt-20 bg-zinc-900 text-zinc-300">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between gap-3 text-sm">
+    <p>© 2025 · Rumah Adat Sinjai</p>
+    <p>
+      <a href="https://rifanarrifki1179-dev.github.io/benteng_somba_opu/" target="_blank" class="text-amber-400 hover:text-amber-300 underline underline-offset-4 transition">
+        Benteng Somba Opu
+      </a>
+    </p>
+  </div>
+</footer>
+
+<div id="pageOverlay" class="page-overlay"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const overlay = document.getElementById("pageOverlay");
+  const menuBtn = document.getElementById("menuBtn");
+  const menuIcon = document.getElementById("menuIcon");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const menuBackdrop = document.getElementById("menuBackdrop");
+
+  if (menuBtn && mobileMenu && menuIcon && menuBackdrop) {
+    menuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      mobileMenu.classList.toggle("open");
+      menuBackdrop.classList.toggle("open");
+      body.classList.toggle("menu-open");
+      menuIcon.textContent = mobileMenu.classList.contains("open") ? "×" : "☰";
+    });
+
+    menuBackdrop.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      menuBackdrop.classList.remove("open");
+      body.classList.remove("menu-open");
+      menuIcon.textContent = "☰";
+    });
+  }
+
+
+
+  const heroCards = document.querySelectorAll(".hero-carousel-card");
+  const prevHeroBtn = document.getElementById("prevHeroCard");
+  const nextHeroBtn = document.getElementById("nextHeroCard");
+  let activeHeroIndex = 0;
+
+  function updateHeroCarousel() {
+    heroCards.forEach((card, index) => {
+      card.classList.remove("is-active", "is-left", "is-right", "is-hidden");
+      const total = heroCards.length;
+      const leftIndex = (activeHeroIndex - 1 + total) % total;
+      const rightIndex = (activeHeroIndex + 1) % total;
+
+      if (index === activeHeroIndex) {
+        card.classList.add("is-active");
+      } else if (index === leftIndex) {
+        card.classList.add("is-left");
+      } else if (index === rightIndex) {
+        card.classList.add("is-right");
+      } else {
+        card.classList.add("is-hidden");
+      }
+    });
+  }
+
+  if (heroCards.length > 0 && prevHeroBtn && nextHeroBtn) {
+    nextHeroBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      activeHeroIndex = (activeHeroIndex + 1) % heroCards.length;
+      updateHeroCarousel();
+    });
+
+    prevHeroBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      activeHeroIndex = (activeHeroIndex - 1 + heroCards.length) % heroCards.length;
+      updateHeroCarousel();
+    });
+
+    heroCards.forEach((card, index) => {
+      card.addEventListener("click", (e) => {
+        if (index !== activeHeroIndex) {
           e.preventDefault();
           e.stopPropagation();
-
-          mobileMenu.classList.toggle("open");
-          menuBackdrop.classList.toggle("open");
-          body.classList.toggle("menu-open");
-
-          menuIcon.textContent = mobileMenu.classList.contains("open") ? "×" : "☰";
-        });
-
-        menuBackdrop.addEventListener("click", () => {
-          mobileMenu.classList.remove("open");
-          menuBackdrop.classList.remove("open");
-          body.classList.remove("menu-open");
-          menuIcon.textContent = "☰";
-        });
-      }
-
-      const cards = document.querySelectorAll(".carousel-card");
-      const prevBtn = document.getElementById("prevCard");
-      const nextBtn = document.getElementById("nextCard");
-
-      let activeIndex = 0;
-
-      function updateCarousel() {
-        cards.forEach((card, index) => {
-          card.classList.remove("is-active", "is-left", "is-right", "is-hidden");
-
-          const total = cards.length;
-          const leftIndex = (activeIndex - 1 + total) % total;
-          const rightIndex = (activeIndex + 1) % total;
-
-          if (index === activeIndex) {
-            card.classList.add("is-active");
-          } else if (index === leftIndex) {
-            card.classList.add("is-left");
-          } else if (index === rightIndex) {
-            card.classList.add("is-right");
-          } else {
-            card.classList.add("is-hidden");
-          }
-        });
-      }
-
-      if (nextBtn && prevBtn && cards.length > 0) {
-        nextBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          activeIndex = (activeIndex + 1) % cards.length;
-          updateCarousel();
-        });
-
-        prevBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          activeIndex = (activeIndex - 1 + cards.length) % cards.length;
-          updateCarousel();
-        });
-
-        cards.forEach((card, index) => {
-          card.addEventListener("click", (e) => {
-            if (index !== activeIndex) {
-              e.preventDefault();
-              e.stopPropagation();
-              activeIndex = index;
-              updateCarousel();
-            }
-          });
-        });
-
-        updateCarousel();
-      }
-
-      const links = document.querySelectorAll('a[href]:not([href^="#"]):not([target="_blank"])');
-
-      links.forEach(link => {
-        link.addEventListener("click", function (e) {
-          const href = this.getAttribute("href");
-
-          if (!href || href.startsWith("javascript:")) return;
-
-          if (this.classList.contains("carousel-card")) {
-            const index = Number(this.dataset.index);
-            if (index !== activeIndex) return;
-          }
-
-          e.preventDefault();
-
-          body.classList.add("is-leaving");
-          if (overlay) overlay.classList.add("is-active");
-
-          setTimeout(() => {
-            window.location.href = href;
-          }, 420);
-        });
-      });
-
-      window.addEventListener("pageshow", () => {
-        body.classList.remove("is-leaving");
-        body.classList.remove("menu-open");
-        if (overlay) overlay.classList.remove("is-active");
+          activeHeroIndex = index;
+          updateHeroCarousel();
+        }
       });
     });
-  </script>
+
+    updateHeroCarousel();
+  }
+
+  const links = document.querySelectorAll('a[href]:not([href^="#"]):not([target="_blank"])');
+  links.forEach(link => {
+    link.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      if (!href || href.startsWith("javascript:")) return;
+
+      if (this.classList.contains("hero-carousel-card")) {
+        const index = Number(this.dataset.index);
+        if (index !== activeHeroIndex) return;
+      }
+
+      e.preventDefault();
+      body.classList.add("is-leaving");
+      if (overlay) overlay.classList.add("is-active");
+      setTimeout(() => { window.location.href = href; }, 420);
+    });
+  });
+
+  window.addEventListener("pageshow", () => {
+    body.classList.remove("is-leaving");
+    body.classList.remove("menu-open");
+    if (overlay) overlay.classList.remove("is-active");
+  });
+});
+</script>
 
 </body>
 </html>
